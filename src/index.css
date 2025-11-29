@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom font weights and styles */
+@layer base {
+  * {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  }
+
+  /* Override with custom font classes for Graphik LC Web simulation */
+  .font-graphik-regular {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+  }
+  
+  .font-graphik-semibold {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+  }
+  
+  .font-graphik-bold {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+  }
+
+  /* Text size utilities matching Figma design */
+  .text-9 {
+    font-size: 9px;
+    line-height: normal;
+  }
+  
+  .text-13 {
+    font-size: 13px;
+    line-height: 16px;
+  }
+  
+  .text-14 {
+    font-size: 14px;
+    line-height: 17px;
+  }
+  
+  .text-24 {
+    font-size: 24px;
+    line-height: 29px;
+  }
+
+  /* Custom utilities for precise layout matching */
+  .h-17 {
+    height: 68px;
+  }
+  
+  .p-15 {
+    padding: 60px;
+  }
+  
+  .px-15 {
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+  
+  .bg-gray-25 {
+    background-color: #fafafa;
+  }
+}
+
+/* Remove default button styles */
+@layer components {
+  .btn-reset {
+    @apply border-none bg-transparent p-0 cursor-pointer;
+  }
+  
+  .nav-item {
+    @apply flex h-9 items-center w-full px-4 text-14 font-graphik-regular text-secondary-dark hover:bg-gray-50 transition-colors;
+  }
+  
+  .nav-item.active {
+    @apply font-graphik-semibold bg-white shadow-subtle;
+  }
+
+  .filter-btn {
+    @apply border border-gray-200 rounded px-3 py-1.5 text-13 font-graphik-semibold hover:bg-gray-50 transition-colors;
+  }
+
+  .status-label {
+    @apply px-2 py-1 rounded text-9 font-graphik-semibold uppercase tracking-wide;
+  }
+
+  .status-draft {
+    @apply bg-gray-100 text-gray-700;
+  }
+
+  .status-sent {
+    @apply bg-blue-100 text-blue-700;
+  }
+
+  .status-completed {
+    @apply bg-green-100 text-green-700;
+  }
+
+  .status-awaiting-approval {
+    @apply bg-orange-100 text-orange-700;
+  }
+
+  .status-rejected {
+    @apply bg-red-100 text-red-700;
+  }
+}
