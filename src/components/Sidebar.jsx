@@ -13,13 +13,13 @@ import {
   ChevronDownIcon
 } from './Icons';
 
-const Sidebar = () => {
+const Sidebar = ({ currentView, onNavigate }) => {
   const mainNavItems = [
-    { icon: HomeIcon, label: 'Home', active: false },
-    { icon: DocumentIcon, label: 'Documents', active: true },
-    { icon: TemplateIcon, label: 'Templates', active: false },
-    { icon: ContactsIcon, label: 'Contacts', active: false },
-    { icon: MoreIcon, label: 'More', active: false },
+    { icon: HomeIcon, label: 'Home', view: 'Home' },
+    { icon: DocumentIcon, label: 'Documents', view: 'Documents' },
+    { icon: TemplateIcon, label: 'Templates', view: 'Templates' },
+    { icon: ContactsIcon, label: 'Contacts', view: 'Contacts' },
+    { icon: MoreIcon, label: 'More', view: 'More' },
   ];
 
   const bottomNavItems = [
@@ -53,17 +53,19 @@ const Sidebar = () => {
         <nav className="space-y-0">
           {mainNavItems.map((item, index) => {
             const IconComponent = item.icon;
+            const isActive = currentView === item.view;
             return (
               <button
                 key={index}
-                className={`nav-item ${item.active ? 'active' : ''}`}
-                style={item.active ? {
+                onClick={() => onNavigate(item.view)}
+                className={`nav-item ${isActive ? 'active' : ''}`}
+                style={isActive ? {
                   backgroundColor: 'white',
                   boxShadow: '0px 0px 1px 0px rgba(47,47,47,0.04), 0px 1px 4px 0px rgba(47,47,47,0.12)'
                 } : {}}
               >
-                <IconComponent className={`w-5 h-5 mr-3 ${item.active ? 'text-[#1D6A52]' : 'text-[#474747]'}`} />
-                <span className={item.active ? 'text-secondary-dark' : 'text-secondary-dark'}>
+                <IconComponent className={`w-5 h-5 mr-3 ${isActive ? 'text-[#1D6A52]' : 'text-[#474747]'}`} />
+                <span className={isActive ? 'text-secondary-dark' : 'text-secondary-dark'}>
                   {item.label}
                 </span>
               </button>
