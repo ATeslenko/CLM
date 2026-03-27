@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Clock, Mail, ChevronDown, ChevronUp, DollarSign, List, MoreVertical } from 'lucide-react';
+import { Clock, Mail, ChevronDown, ChevronUp, DollarSign, List, MoreVertical, FileText } from 'lucide-react';
 import BulkEmailModal from './BulkEmailModal';
 import RenewalAlertsModal from './RenewalAlertsModal';
 
@@ -50,8 +50,8 @@ const ActionTileItem = ({ company, contract, expiryDate, amount, contact, daysLe
         style={{
           display: 'flex',
           alignItems: 'center',
-          gap: '16px',
-          padding: '16px',
+          gap: '12px',
+          padding: '12px 16px',
           borderBottom: '1px solid #e5e5e5',
           background: 'white'
         }}
@@ -62,8 +62,8 @@ const ActionTileItem = ({ company, contract, expiryDate, amount, contact, daysLe
           checked={isSelected}
           onChange={(e) => onSelect(e.target.checked)}
           style={{
-            width: '20px',
-            height: '20px',
+            width: '16px',
+            height: '16px',
             cursor: 'pointer',
             accentColor: 'var(--color-primary-main)',
             flexShrink: 0
@@ -71,22 +71,37 @@ const ActionTileItem = ({ company, contract, expiryDate, amount, contact, daysLe
         />
       )}
       
+      <div 
+        style={{
+          width: '28px',
+          height: '28px',
+          borderRadius: '6px',
+          background: '#f5f5f5',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexShrink: 0
+        }}
+      >
+        <FileText size={14} style={{ color: '#767676' }} />
+      </div>
+
       <div style={{ flex: 1 }}>
         <div 
           style={{
-            fontSize: '14px',
-            lineHeight: '20px',
+            fontSize: '13px',
+            lineHeight: '18px',
             fontWeight: '600',
             color: 'var(--color-secondary-dark)',
             fontFamily: 'Inter, sans-serif',
-            marginBottom: '4px'
+            marginBottom: '2px'
           }}
         >
           {company} — {contract}
         </div>
         <div 
           style={{
-            fontSize: '13px',
+            fontSize: '12px',
             lineHeight: '16px',
             fontWeight: '400',
             color: 'var(--color-secondary-lighter)',
@@ -100,9 +115,9 @@ const ActionTileItem = ({ company, contract, expiryDate, amount, contact, daysLe
       {daysLeft && (
         <div 
           style={{
-            padding: '4px 12px',
-            borderRadius: '12px',
-            fontSize: '12px',
+            padding: '3px 10px',
+            borderRadius: '10px',
+            fontSize: '11px',
             fontWeight: '600',
             fontFamily: 'Inter, sans-serif',
             background: daysLeft.critical ? '#FDF1F0' : '#FFF8F2',
@@ -119,9 +134,9 @@ const ActionTileItem = ({ company, contract, expiryDate, amount, contact, daysLe
           <button
             onClick={primaryAction.onClick}
             style={{
-              padding: '8px 16px',
+              padding: '6px 14px',
               borderRadius: '4px',
-              fontSize: '13px',
+              fontSize: '12px',
               fontWeight: '600',
               fontFamily: 'Inter, sans-serif',
               border: 'none',
@@ -148,8 +163,8 @@ const ActionTileItem = ({ company, contract, expiryDate, amount, contact, daysLe
             ref={buttonRef}
             onClick={handleOpenMenu}
             style={{
-              width: '32px',
-              height: '32px',
+              width: '28px',
+              height: '28px',
               borderRadius: '4px',
               border: '1px solid #D1D1D1',
               background: 'white',
@@ -168,7 +183,7 @@ const ActionTileItem = ({ company, contract, expiryDate, amount, contact, daysLe
               e.target.style.background = 'white';
             }}
           >
-            <MoreVertical size={16} />
+            <MoreVertical size={14} />
           </button>
         </div>
       </div>
@@ -281,11 +296,11 @@ const ActionTile = ({
       <div 
         style={{
           background: 'white',
-          borderRadius: '12px',
+          borderRadius: '8px',
           border: `1px solid ${getBorderColor()}`,
-          boxShadow: 'none',
+          boxShadow: '0 0 1px rgba(47,47,47,0.04), 0 1px 4px rgba(47,47,47,0.12)',
           overflow: 'hidden',
-          marginBottom: '16px',
+          marginBottom: '12px',
           transition: 'all 200ms ease',
           position: 'relative'
         }}
@@ -293,11 +308,11 @@ const ActionTile = ({
         {/* Header */}
         <div 
           style={{
-            padding: '20px 24px',
+            padding: '14px 16px',
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
-            gap: '16px',
+            gap: '12px',
             background: 'white',
             transition: 'background 150ms ease'
           }}
@@ -314,9 +329,9 @@ const ActionTile = ({
           {/* Icon */}
           <div 
             style={{
-              width: '48px',
-              height: '48px',
-              borderRadius: '10px',
+              width: '40px',
+              height: '40px',
+              borderRadius: '8px',
               background: iconBg,
               display: 'flex',
               alignItems: 'center',
@@ -324,27 +339,27 @@ const ActionTile = ({
               flexShrink: 0
             }}
           >
-            <Icon size={24} style={{ color: iconColor }} />
+            <Icon size={20} style={{ color: iconColor }} />
           </div>
 
           {/* Content */}
           <div style={{ flex: 1 }}>
             <div 
               style={{
-                fontSize: '16px',
-                lineHeight: '20px',
-                fontWeight: '700',
+                fontSize: '14px',
+                lineHeight: '18px',
+                fontWeight: '600',
                 color: 'var(--color-secondary-dark)',
                 fontFamily: 'Inter, sans-serif',
-                marginBottom: '4px'
+                marginBottom: '2px'
               }}
             >
               {title}
             </div>
             <div 
               style={{
-                fontSize: '13px',
-                lineHeight: '18px',
+                fontSize: '12px',
+                lineHeight: '16px',
                 fontWeight: '400',
                 color: 'var(--color-secondary-light)',
                 fontFamily: 'Inter, sans-serif'
@@ -358,9 +373,9 @@ const ActionTile = ({
           {badge && (
             <div 
               style={{
-                padding: '6px 16px',
-                borderRadius: '16px',
-                fontSize: '13px',
+                padding: '4px 12px',
+                borderRadius: '12px',
+                fontSize: '12px',
                 fontWeight: '600',
                 fontFamily: 'Inter, sans-serif',
                 background: badgeBg,
@@ -375,8 +390,8 @@ const ActionTile = ({
           {/* Expand Icon */}
           <div 
             style={{
-              width: '24px',
-              height: '24px',
+              width: '20px',
+              height: '20px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -384,7 +399,7 @@ const ActionTile = ({
               flexShrink: 0
             }}
           >
-            {isExpanded ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+            {isExpanded ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
           </div>
         </div>
 
@@ -394,7 +409,7 @@ const ActionTile = ({
             {/* Select All */}
             <div 
               style={{
-                padding: '12px 24px',
+                padding: '10px 16px',
                 borderBottom: '1px solid #e5e5e5',
                 display: 'flex',
                 alignItems: 'center',
@@ -402,21 +417,21 @@ const ActionTile = ({
                 background: '#fafafa'
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <input
                   type="checkbox"
                   checked={selectedItems.length === items.length && items.length > 0}
                   onChange={handleSelectAll}
                   style={{
-                    width: '20px',
-                    height: '20px',
+                    width: '16px',
+                    height: '16px',
                     cursor: 'pointer',
                     accentColor: 'var(--color-primary-main)'
                   }}
                 />
                 <span 
                   style={{
-                    fontSize: '13px',
+                    fontSize: '12px',
                     fontWeight: '600',
                     color: 'var(--color-secondary-main)',
                     fontFamily: 'Inter, sans-serif',
@@ -438,9 +453,9 @@ const ActionTile = ({
                     }
                   }}
                   style={{
-                    padding: '8px 16px',
-                    borderRadius: '6px',
-                    fontSize: '13px',
+                    padding: '6px 12px',
+                    borderRadius: '4px',
+                    fontSize: '12px',
                     fontWeight: '600',
                     fontFamily: 'Inter, sans-serif',
                     border: 'none',
@@ -450,8 +465,8 @@ const ActionTile = ({
                     transition: 'all 150ms ease',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '6px',
-                    boxShadow: '0 2px 4px rgba(36, 133, 103, 0.2)'
+                    gap: '4px',
+                    boxShadow: '0 1px 3px rgba(36, 133, 103, 0.15)'
                   }}
                   onMouseEnter={(e) => {
                     e.target.style.background = 'var(--color-primary-dark)';
@@ -460,7 +475,7 @@ const ActionTile = ({
                     e.target.style.background = 'var(--color-primary-main)';
                   }}
                 >
-                  <BulkActionIcon size={14} />
+                  <BulkActionIcon size={12} />
                   {bulkActionLabel}
                 </button>
               )}
@@ -491,32 +506,29 @@ const ActionTile = ({
                 style={{
                   display: 'flex',
                   justifyContent: 'center',
-                  padding: '20px 24px',
-                  borderTop: '1px solid #e5e5e5',
+                  padding: '12px 16px',
                   background: 'white'
                 }}
               >
                 <button
                   onClick={() => setIsRenewalAlertsModalOpen(true)}
                   style={{
-                    padding: '10px 20px',
+                    padding: '6px 14px',
                     borderRadius: '4px',
-                    fontSize: '14px',
+                    fontSize: '12px',
                     fontWeight: '600',
                     fontFamily: 'Inter, sans-serif',
-                    border: '1px solid var(--color-tertiary-darker)',
-                    background: 'var(--color-basic-white)',
-                    color: 'var(--color-secondary-main)',
+                    border: 'none',
+                    background: 'rgba(118, 118, 118, 0.08)',
+                    color: '#474747',
                     cursor: 'pointer',
                     transition: 'all 150ms ease'
                   }}
                   onMouseEnter={(e) => {
-                    e.target.style.background = 'var(--color-tertiary-light)';
-                    e.target.style.borderColor = 'var(--color-secondary-lighter)';
+                    e.target.style.background = 'rgba(118, 118, 118, 0.15)';
                   }}
                   onMouseLeave={(e) => {
-                    e.target.style.background = 'var(--color-basic-white)';
-                    e.target.style.borderColor = 'var(--color-tertiary-darker)';
+                    e.target.style.background = 'rgba(118, 118, 118, 0.08)';
                   }}
                 >
                   Set auto reminders
@@ -569,51 +581,6 @@ const ActionTiles = ({ onShowSnackbar }) => {
   const tilesData = [
     {
       icon: Clock,
-      iconColor: '#E44E48',
-      iconBg: '#FDF1F0',
-      title: 'Expiring this week',
-      subtitle: '2 contracts need immediate action',
-      badge: '2 critical',
-      badgeColor: '#B63E3A',
-      badgeBg: '#FDF1F0',
-      mainActionLabel: 'Send 2 reminders',
-      variant: 'critical',
-      defaultExpanded: true,
-      items: [
-        {
-          id: 'exp-1',
-          company: 'Tech Solutions',
-          contract: 'Annual subscription',
-          expiryDate: 'Expires tomorrow, March 27',
-          amount: '$4,200/yr',
-          contact: 'David Kim',
-          email: 'david@techsolutions.com',
-          daysLeft: { label: '1 day', critical: true },
-          actions: [
-            { label: 'Snooze 3d', onClick: () => console.log('Snooze'), primary: false },
-            { label: 'View document', onClick: () => console.log('View document'), primary: false },
-            { label: 'Send reminder', onClick: () => handleSendReminder('Tech Solutions'), primary: true }
-          ]
-        },
-        {
-          id: 'exp-2',
-          company: 'Orion Systems',
-          contract: 'Service contract',
-          expiryDate: 'Expires in 5 days, March 31',
-          amount: '$12,000/yr',
-          contact: 'Sarah Johnson',
-          email: 'sarah@orionsystems.com',
-          daysLeft: { label: '5 days', critical: false },
-          actions: [
-            { label: 'Snooze 3d', onClick: () => console.log('Snooze'), primary: false },
-            { label: 'View document', onClick: () => console.log('View document'), primary: false },
-            { label: 'Send reminder', onClick: () => handleSendReminder('Orion Systems'), primary: true }
-          ]
-        }
-      ]
-    },
-    {
-      icon: Clock,
       iconColor: '#F88619',
       iconBg: '#FFF8F2',
       title: 'Renewing this month',
@@ -623,7 +590,7 @@ const ActionTiles = ({ onShowSnackbar }) => {
       badgeBg: '#FFFAF2',
       mainActionLabel: 'Send reminders',
       variant: 'warning',
-      defaultExpanded: false,
+      defaultExpanded: true,
       showAutoRemindersFooter: true,
       items: [
         {
@@ -666,6 +633,51 @@ const ActionTiles = ({ onShowSnackbar }) => {
             { label: 'Schedule', onClick: () => console.log('Schedule'), primary: false },
             { label: 'View document', onClick: () => console.log('View document'), primary: false },
             { label: 'Send reminder', onClick: () => handleSendReminder('Zenith Corp'), primary: true }
+          ]
+        }
+      ]
+    },
+    {
+      icon: Clock,
+      iconColor: '#E44E48',
+      iconBg: '#FDF1F0',
+      title: 'Expiring this week',
+      subtitle: '2 contracts need immediate action',
+      badge: '2 critical',
+      badgeColor: '#B63E3A',
+      badgeBg: '#FDF1F0',
+      mainActionLabel: 'Send 2 reminders',
+      variant: 'critical',
+      defaultExpanded: false,
+      items: [
+        {
+          id: 'exp-1',
+          company: 'Tech Solutions',
+          contract: 'Annual subscription',
+          expiryDate: 'Expires tomorrow, March 27',
+          amount: '$4,200/yr',
+          contact: 'David Kim',
+          email: 'david@techsolutions.com',
+          daysLeft: { label: '1 day', critical: true },
+          actions: [
+            { label: 'Snooze 3d', onClick: () => console.log('Snooze'), primary: false },
+            { label: 'View document', onClick: () => console.log('View document'), primary: false },
+            { label: 'Send reminder', onClick: () => handleSendReminder('Tech Solutions'), primary: true }
+          ]
+        },
+        {
+          id: 'exp-2',
+          company: 'Orion Systems',
+          contract: 'Service contract',
+          expiryDate: 'Expires in 5 days, March 31',
+          amount: '$12,000/yr',
+          contact: 'Sarah Johnson',
+          email: 'sarah@orionsystems.com',
+          daysLeft: { label: '5 days', critical: false },
+          actions: [
+            { label: 'Snooze 3d', onClick: () => console.log('Snooze'), primary: false },
+            { label: 'View document', onClick: () => console.log('View document'), primary: false },
+            { label: 'Send reminder', onClick: () => handleSendReminder('Orion Systems'), primary: true }
           ]
         }
       ]
@@ -807,19 +819,46 @@ const ActionTiles = ({ onShowSnackbar }) => {
   ];
 
   return (
-    <div style={{ marginBottom: '32px' }}>
-      <h2 
-        style={{
-          fontSize: '18px',
-          lineHeight: '24px',
-          fontWeight: '600',
-          color: 'var(--color-secondary-dark)',
-          fontFamily: 'Inter, sans-serif',
-          marginBottom: '20px'
-        }}
-      >
-        Priority actions
-      </h2>
+    <div style={{ marginBottom: '24px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
+        <h2 
+          style={{
+            fontSize: '16px',
+            lineHeight: '20px',
+            fontWeight: '600',
+            color: 'var(--color-secondary-dark)',
+            fontFamily: 'Inter, sans-serif',
+            margin: 0
+          }}
+        >
+          Priority actions
+        </h2>
+        <button
+          onClick={() => console.log('Remove all priority actions')}
+          style={{
+            padding: '5px 12px',
+            borderRadius: '4px',
+            fontSize: '12px',
+            fontWeight: '500',
+            fontFamily: 'Inter, sans-serif',
+            border: '1px solid var(--color-tertiary-darker)',
+            background: 'var(--color-basic-white)',
+            color: 'var(--color-secondary-light)',
+            cursor: 'pointer',
+            transition: 'all 150ms ease'
+          }}
+          onMouseEnter={(e) => {
+            e.target.style.background = 'var(--color-tertiary-light)';
+            e.target.style.color = 'var(--color-secondary-dark)';
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.background = 'var(--color-basic-white)';
+            e.target.style.color = 'var(--color-secondary-light)';
+          }}
+        >
+          Remove all
+        </button>
+      </div>
       
       {tilesData.map((tile, index) => (
         <ActionTile

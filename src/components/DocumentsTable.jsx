@@ -3,18 +3,7 @@ import { DocumentPortraitIcon, ChevronDownIcon, ChevronRightIcon } from './Icons
 import StatusLabel from './StatusLabel';
 import Avatar from './Avatar';
 import { organizeByYear, organizeByCompany, organizeByStatus } from '../data/mockGmailDocuments';
-
-const avatars = [
-  '/avatar-1.png',
-  '/avatar-2.png',
-  '/avatar-3.png',
-  '/avatar-4.png'
-];
-
-const getRandomAvatar = (seed) => {
-  const index = seed % avatars.length;
-  return avatars[index];
-};
+import { getRandomAvatar } from '../utils/avatars';
 
 const DocumentsTable = ({ currentFolder, onFolderClick, importedDocuments = [], importedOrganizationSettings = null, currentTab = 'All documents' }) => {
   const [expandedFolders, setExpandedFolders] = useState({});

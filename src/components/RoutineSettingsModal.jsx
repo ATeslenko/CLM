@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 
 const RoutineSettingsModal = ({ isOpen, onClose, routine }) => {
@@ -6,6 +6,15 @@ const RoutineSettingsModal = ({ isOpen, onClose, routine }) => {
   const [frequency, setFrequency] = useState(routine?.frequency || 'daily');
   const [time, setTime] = useState(routine?.time || '09:00');
   const [dayOfWeek, setDayOfWeek] = useState(routine?.dayOfWeek || 'monday');
+
+  useEffect(() => {
+    if (routine) {
+      setIsEnabled(routine.isSet || false);
+      setFrequency(routine.frequency || 'daily');
+      setTime(routine.time || '09:00');
+      setDayOfWeek(routine.dayOfWeek || 'monday');
+    }
+  }, [routine, isOpen]);
 
   if (!isOpen || !routine) return null;
 
