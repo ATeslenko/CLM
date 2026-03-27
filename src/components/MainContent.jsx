@@ -3,11 +3,15 @@ import { PlusIcon, FilterIcon, ChevronDownIcon, SparkleIcon, FolderPlusIcon, Che
 import DocumentsTable from './DocumentsTable';
 import Badge from './Badge';
 
-const MainContent = ({ importedDocuments = [], importedOrganizationSettings = null, currentTab, onTabChange, currentFolder, onFolderChange, onOpenDocumentModal }) => {
+const MainContent = ({ importedDocuments = [], importedOrganizationSettings = null, currentTab, onTabChange, currentFolder, onFolderChange, onOpenDocumentModal, activeFilters = [], onFiltersChange }) => {
   // Reset folder when switching tabs
   React.useEffect(() => {
     onFolderChange(null);
   }, [currentTab, onFolderChange]);
+
+  const handleRemoveFilter = (filterToRemove) => {
+    onFiltersChange(activeFilters.filter(f => f !== filterToRemove));
+  };
 
   const handleFolderClick = (folder) => {
     onFolderChange(folder);
@@ -167,22 +171,68 @@ const MainContent = ({ importedDocuments = [], importedOrganizationSettings = nu
         {/* Filters Row (hide when in folder view) */}
         {!currentFolder && (
           <div className="mb-6">
-          <div className="flex items-center gap-3">
-            {filters.map((filter, index) => (
-              <button
-                key={index}
-                className="filter-btn flex items-center gap-2"
-              >
-                {filter}
-                <ChevronDownIcon className="w-4 h-4" />
+            <div className="flex items-center gap-3">
+              {filters.map((filter, index) => (
+                <button
+                  key={index}
+                  className="filter-btn flex items-center gap-2"
+                >
+                  {filter}
+                  <ChevronDownIcon className="w-4 h-4" />
+                </button>
+              ))}
+              <button className="filter-btn flex items-center gap-2">
+                More
+                <PlusIcon className="w-4 h-4" />
               </button>
-            ))}
-            <button className="filter-btn flex items-center gap-2">
-              More
-              <PlusIcon className="w-4 h-4" />
-            </button>
+            </div>
+
+            {/* Active Filters */}
+            {activeFilters.length > 0 && (
+              <div className="flex items-center gap-3 mt-4">
+                {activeFilters.map((filter, index) => (
+                  <div 
+                    key={index}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      padding: '6px 12px',
+                      background: 'var(--color-primary-lighter)',
+                      border: '1px solid var(--color-primary-light)',
+                      borderRadius: '6px',
+                      fontSize: '13px',
+                      fontWeight: '600',
+                      color: 'var(--color-primary-dark)',
+                      fontFamily: 'Inter, sans-serif'
+                    }}
+                  >
+                    <span>{filter.type}: {filter.value}</span>
+                    <button
+                      onClick={() => handleRemoveFilter(filter)}
+                      style={{
+                        background: 'transparent',
+                        border: 'none',
+                        padding: '0',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        color: 'var(--color-primary-dark)',
+                        opacity: '0.7',
+                        transition: 'opacity 150ms ease'
+                      }}
+                      onMouseEnter={(e) => e.target.style.opacity = '1'}
+                      onMouseLeave={(e) => e.target.style.opacity = '0.7'}
+                    >
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                        <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                      </svg>
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
-        </div>
         )}
 
         {/* Documents Table */}

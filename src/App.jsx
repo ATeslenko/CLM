@@ -4,9 +4,12 @@ import Header from './components/Header';
 import MainContent from './components/MainContent';
 import GmailImportModal from './components/GmailImportModal';
 import GetStartedModal from './components/GetStartedModal';
+import InsightsAgent from './components/InsightsAgent';
 import StatsSection from './components/StatsSection';
-import PriorityTasks from './components/PriorityTasks';
+import ActionTiles from './components/ActionTiles';
+import RenewalTimeline from './components/RenewalTimeline';
 import RoutinesSection from './components/RoutinesSection';
+import Snackbar from './components/Snackbar';
 import { PlusIcon, ChevronDownIcon } from './components/Icons';
 
 function App() {
@@ -17,7 +20,8 @@ function App() {
   const [currentTab, setCurrentTab] = useState('All documents');
   const [currentFolder, setCurrentFolder] = useState(null);
   const [currentView, setCurrentView] = useState('Home');
-  const [priorityTasksTab, setPriorityTasksTab] = useState('urgent');
+  const [activeFilters, setActiveFilters] = useState([]);
+  const [snackbar, setSnackbar] = useState({ isVisible: false, message: '', type: 'success' });
 
   const handleOpenGmailImport = () => {
     setIsGmailImportModalOpen(true);
@@ -51,8 +55,29 @@ function App() {
     setCurrentTab('Imported');
   };
 
-  const handleStatClick = (tabId) => {
-    setPriorityTasksTab(tabId);
+  const handleStatClick = (filterType) => {
+    // Navigate to Documents view
+    setCurrentView('Documents');
+    setCurrentTab('All documents');
+    setCurrentFolder(null);
+    
+    // Set appropriate filters based on stat type
+    const filterMap = {
+      'renewals': [{ type: 'Renewal date', value: 'Next 30 days' }],
+      'expirations': [{ type: 'Expiration date', value: 'Next 30 days' }],
+      'signature': [{ type: 'Status', value: 'Awaiting signature' }],
+      'payment': [{ type: 'Payment status', value: 'Pending' }]
+    };
+    
+    setActiveFilters(filterMap[filterType] || []);
+  };
+
+  const showSnackbar = (message, type = 'success') => {
+    setSnackbar({ isVisible: true, message, type });
+  };
+
+  const hideSnackbar = () => {
+    setSnackbar({ ...snackbar, isVisible: false });
   };
 
   return (
@@ -70,7 +95,7 @@ function App() {
         </div>
         
         {/* Main content - Scrollable, full width */}
-        <main className="flex-1 overflow-auto" style={{ background: '#f4f4f4' }}>
+        <main className="flex-1 overflow-auto" style={{ background: 'white' }}>
           {currentView === 'Home' && (
             <div className="w-full p-15">
               <div className="flex items-center justify-between mb-6">
@@ -105,8 +130,10 @@ function App() {
                 </div>
               </div>
               
-              <StatsSection onStatClick={handleStatClick} />
-              <PriorityTasks activeTab={priorityTasksTab} onTabChange={setPriorityTasksTab} />
+              <InsightsAgent />
+              {/* <StatsSection onStatClick={handleStatClick} /> */}
+              <ActionTiles onShowSnackbar={showSnackbar} />
+              {/* <RenewalTimeline /> */}
               <RoutinesSection />
             </div>
           )}
@@ -120,6 +147,8 @@ function App() {
               currentFolder={currentFolder}
               onFolderChange={setCurrentFolder}
               onOpenDocumentModal={handleOpenGetStarted}
+              activeFilters={activeFilters}
+              onFiltersChange={setActiveFilters}
             />
           )}
         </main>
@@ -137,6 +166,14 @@ function App() {
         isOpen={isGmailImportModalOpen}
         onClose={handleCloseGmailImport}
         onImportComplete={handleImportComplete}
+      />
+
+      {/* Snackbar */}
+      <Snackbar
+        message={snackbar.message}
+        isVisible={snackbar.isVisible}
+        onClose={hideSnackbar}
+        type={snackbar.type}
       />
     </div>
   );

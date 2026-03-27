@@ -4,6 +4,18 @@ import StatusLabel from './StatusLabel';
 import Avatar from './Avatar';
 import { organizeByYear, organizeByCompany, organizeByStatus } from '../data/mockGmailDocuments';
 
+const avatars = [
+  '/avatar-1.png',
+  '/avatar-2.png',
+  '/avatar-3.png',
+  '/avatar-4.png'
+];
+
+const getRandomAvatar = (seed) => {
+  const index = seed % avatars.length;
+  return avatars[index];
+};
+
 const DocumentsTable = ({ currentFolder, onFolderClick, importedDocuments = [], importedOrganizationSettings = null, currentTab = 'All documents' }) => {
   const [expandedFolders, setExpandedFolders] = useState({});
 
@@ -249,7 +261,7 @@ const DocumentsTable = ({ currentFolder, onFolderClick, importedDocuments = [], 
       id: 'proposal-templates',
       name: 'Proposal templates',
       itemCount: 3,
-      avatar: '/CLM/images/user-profile.png',
+      avatar: getRandomAvatar(1),
       created: 'Jan 10, 2025',
       documents: []
     },
@@ -257,7 +269,7 @@ const DocumentsTable = ({ currentFolder, onFolderClick, importedDocuments = [], 
       id: 'ndas',
       name: "NDA's",
       itemCount: 3,
-      avatar: '/CLM/images/user-profile.png',
+      avatar: getRandomAvatar(2),
       created: 'Jan 10, 2025',
       documents: []
     }
@@ -272,7 +284,7 @@ const DocumentsTable = ({ currentFolder, onFolderClick, importedDocuments = [], 
       status: 'Draft',
       amount: '$4,250.00',
       created: 'May 21, 2024',
-      avatar: '/CLM/images/4.png',
+      avatar: getRandomAvatar(1),
       folder: 'proposal-templates'
     },
     {
@@ -282,7 +294,7 @@ const DocumentsTable = ({ currentFolder, onFolderClick, importedDocuments = [], 
       status: 'Sent',
       amount: '$9,780.00',
       created: 'Nov 2, 2024',
-      avatar: '/CLM/images/2.png',
+      avatar: getRandomAvatar(2),
       folder: 'proposal-templates'
     },
     {
@@ -292,7 +304,7 @@ const DocumentsTable = ({ currentFolder, onFolderClick, importedDocuments = [], 
       status: 'Awaiting approval',
       amount: '$6,560.00',
       created: 'Jan 10, 2025',
-      avatar: '/CLM/images/3.png',
+      avatar: getRandomAvatar(4),
       folder: 'proposal-templates'
     },
     // Documents in 'ndas' folder
@@ -303,7 +315,7 @@ const DocumentsTable = ({ currentFolder, onFolderClick, importedDocuments = [], 
       status: 'Completed',
       amount: '',
       created: 'Jan 10, 2025',
-      avatar: '/CLM/images/1.png',
+      avatar: getRandomAvatar(3),
       folder: 'ndas'
     },
     {
@@ -313,7 +325,7 @@ const DocumentsTable = ({ currentFolder, onFolderClick, importedDocuments = [], 
       status: 'Rejected',
       amount: '',
       created: 'Jan 10, 2025',
-      avatar: '/CLM/images/4.png',
+      avatar: getRandomAvatar(5),
       folder: 'ndas'
     },
     {
@@ -323,7 +335,7 @@ const DocumentsTable = ({ currentFolder, onFolderClick, importedDocuments = [], 
       status: 'Sent',
       amount: '$9,780.00',
       created: 'Nov 2, 2024',
-      avatar: '/CLM/images/2.png',
+      avatar: getRandomAvatar(6),
       folder: 'ndas'
     },
     // Standalone documents (not in any folder)
@@ -334,7 +346,7 @@ const DocumentsTable = ({ currentFolder, onFolderClick, importedDocuments = [], 
       status: 'Draft',
       amount: '$4,250.00',
       created: 'May 21, 2024',
-      avatar: '/CLM/images/4.png'
+      avatar: getRandomAvatar(7)
     },
     {
       id: 8,
@@ -343,7 +355,7 @@ const DocumentsTable = ({ currentFolder, onFolderClick, importedDocuments = [], 
       status: 'Sent',
       amount: '$9,780.00',
       created: 'Nov 2, 2024',
-      avatar: '/CLM/images/2.png'
+      avatar: getRandomAvatar(8)
     },
     {
       id: 9,
@@ -352,7 +364,7 @@ const DocumentsTable = ({ currentFolder, onFolderClick, importedDocuments = [], 
       status: 'Completed',
       amount: '',
       created: 'Jan 10, 2025',
-      avatar: '/CLM/images/1.png'
+      avatar: getRandomAvatar(9)
     },
     {
       id: 10,
@@ -361,7 +373,7 @@ const DocumentsTable = ({ currentFolder, onFolderClick, importedDocuments = [], 
       status: 'Awaiting approval',
       amount: '$6,560.00',
       created: 'Jan 10, 2025',
-      avatar: '/CLM/images/3.png'
+      avatar: getRandomAvatar(10)
     },
     {
       id: 11,
@@ -370,7 +382,7 @@ const DocumentsTable = ({ currentFolder, onFolderClick, importedDocuments = [], 
       status: 'Rejected',
       amount: '',
       created: 'Jan 10, 2025',
-      avatar: '/CLM/images/4.png'
+      avatar: getRandomAvatar(11)
     }
   ];
 
@@ -423,7 +435,7 @@ const DocumentsTable = ({ currentFolder, onFolderClick, importedDocuments = [], 
         </div>
 
         <div className="w-40 flex items-center gap-2 ml-6">
-          <Avatar src={doc.avatar || '/CLM/images/user-profile.png'} alt="User avatar" size="sm" />
+          <Avatar src={doc.avatar || getRandomAvatar(doc.id)} alt="User avatar" size="sm" />
           <span className="text-13 font-graphik-regular text-secondary-dark">
             {doc.created || new Date(doc.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
           </span>
@@ -472,7 +484,7 @@ const DocumentsTable = ({ currentFolder, onFolderClick, importedDocuments = [], 
 
         {/* Created Column */}
         <div className="w-40 flex items-center gap-2 ml-6">
-          <Avatar src="/CLM/images/user-profile.png" alt="User avatar" size="sm" />
+          <Avatar src={getRandomAvatar(parseInt(folder.id.replace(/\D/g, '')) || 0)} alt="User avatar" size="sm" />
           <span className="text-13 font-graphik-regular text-secondary-dark">
             {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
           </span>

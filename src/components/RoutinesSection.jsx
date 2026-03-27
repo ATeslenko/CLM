@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { RefreshCw, TrendingUp, CheckCircle, Calendar } from 'lucide-react';
+import RoutineSettingsModal from './RoutineSettingsModal';
 
 const RoutineCard = ({ icon: Icon, title, description, schedule, color, isSet = true, onClick }) => {
   const colorMap = {
@@ -18,36 +19,56 @@ const RoutineCard = ({ icon: Icon, title, description, schedule, color, isSet = 
         background: 'var(--color-basic-white)',
         borderRadius: '8px',
         padding: '16px',
-        boxShadow: '0 0 1px rgba(47,47,47,0.04), 0 1px 4px rgba(47,47,47,0.12)',
-        border: '1px solid #e5e5e5',
+        boxShadow: isSet ? '0 0 2px rgba(47,47,47,0.04), 0 2px 6px rgba(47,47,47,0.14)' : '0 0 1px rgba(47,47,47,0.04), 0 1px 4px rgba(47,47,47,0.12)',
+        border: 'none',
         cursor: 'pointer',
         transition: 'all 150ms ease',
         flex: '1 1 0',
         minWidth: '250px',
-        maxWidth: '320px'
+        maxWidth: '320px',
+        position: 'relative'
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.boxShadow = '0 0 2px rgba(47,47,47,0.04), 0 2px 8px rgba(47,47,47,0.12)';
+        e.currentTarget.style.boxShadow = isSet ? '0 0 3px rgba(47,47,47,0.04), 0 3px 10px rgba(47,47,47,0.16)' : '0 0 2px rgba(47,47,47,0.04), 0 2px 8px rgba(47,47,47,0.12)';
         e.currentTarget.style.transform = 'translateY(-2px)';
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.boxShadow = '0 0 1px rgba(47,47,47,0.04), 0 1px 4px rgba(47,47,47,0.12)';
+        e.currentTarget.style.boxShadow = isSet ? '0 0 2px rgba(47,47,47,0.04), 0 2px 6px rgba(47,47,47,0.14)' : '0 0 1px rgba(47,47,47,0.04), 0 1px 4px rgba(47,47,47,0.12)';
         e.currentTarget.style.transform = 'translateY(0)';
       }}
     >
-      <div 
-        style={{
-          width: '40px',
-          height: '40px',
-          borderRadius: '8px',
-          background: colors.bg,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginBottom: '12px'
-        }}
-      >
-        <Icon size={20} style={{ color: colors.icon }} />
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
+        <div 
+          style={{
+            width: '40px',
+            height: '40px',
+            borderRadius: '8px',
+            background: colors.bg,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+          <Icon size={20} style={{ color: colors.icon }} />
+        </div>
+
+        {isSet && (
+          <div
+            style={{
+              padding: '4px 10px',
+              borderRadius: '12px',
+              fontSize: '11px',
+              fontWeight: '600',
+              fontFamily: 'Inter, sans-serif',
+              background: colors.bg,
+              color: colors.icon,
+              textTransform: 'uppercase',
+              letterSpacing: '0.5px'
+            }}
+          >
+            Active
+          </div>
+        )}
       </div>
 
       <div 
@@ -107,6 +128,9 @@ const RoutineCard = ({ icon: Icon, title, description, schedule, color, isSet = 
 };
 
 const RoutinesSection = () => {
+  const [selectedRoutine, setSelectedRoutine] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const routines = [
     {
       icon: RefreshCw,
@@ -114,7 +138,12 @@ const RoutinesSection = () => {
       description: 'Close deals faster with recipient insights and quick actions',
       schedule: 'Daily at 9am',
       color: 'blue',
-      isSet: true
+      iconBg: '#E5F1FB',
+      iconColor: '#2167C6',
+      isSet: true,
+      frequency: 'daily',
+      time: '09:00',
+      dayOfWeek: 'monday'
     },
     {
       icon: TrendingUp,
@@ -122,7 +151,12 @@ const RoutinesSection = () => {
       description: 'Understand team performance and revenue opportunities at a glance',
       schedule: 'Weekly on Monday',
       color: 'pink',
-      isSet: true
+      iconBg: '#FDE8F4',
+      iconColor: '#E83FC7',
+      isSet: true,
+      frequency: 'weekly',
+      time: '09:00',
+      dayOfWeek: 'monday'
     },
     {
       icon: CheckCircle,
@@ -130,7 +164,12 @@ const RoutinesSection = () => {
       description: 'Unblock deals with a prioritised approval summary',
       schedule: null,
       color: 'cyan',
-      isSet: false
+      iconBg: '#D9F5F5',
+      iconColor: '#19C2B9',
+      isSet: false,
+      frequency: 'weekly',
+      time: '09:00',
+      dayOfWeek: 'monday'
     },
     {
       icon: Calendar,
@@ -138,9 +177,19 @@ const RoutinesSection = () => {
       description: 'Get a comprehensive overview of your active pipeline and next steps',
       schedule: 'Weekly on Friday',
       color: 'purple',
-      isSet: true
+      iconBg: '#F3F1FB',
+      iconColor: '#6453CF',
+      isSet: true,
+      frequency: 'weekly',
+      time: '09:00',
+      dayOfWeek: 'friday'
     }
   ];
+
+  const handleRoutineClick = (routine) => {
+    setSelectedRoutine(routine);
+    setIsModalOpen(true);
+  };
 
   return (
     <div style={{ marginTop: '32px' }}>
@@ -173,10 +222,16 @@ const RoutinesSection = () => {
             schedule={routine.schedule}
             color={routine.color}
             isSet={routine.isSet}
-            onClick={() => console.log(`Clicked: ${routine.title}`)}
+            onClick={() => handleRoutineClick(routine)}
           />
         ))}
       </div>
+
+      <RoutineSettingsModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        routine={selectedRoutine}
+      />
     </div>
   );
 };

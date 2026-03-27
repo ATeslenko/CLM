@@ -91,11 +91,11 @@ const StatCard = ({ icon: Icon, value, label, sublabel, isHighlighted = false, o
 
 const StatsSection = ({ onStatClick }) => {
   const stats = [
-    { icon: DollarSign, value: '$91,692.94', label: 'Active pipeline', sublabel: 'Total: 16', isHighlighted: true, tab: null },
-    { icon: RefreshCw, value: '8', label: 'Documents to renew', sublabel: 'This month', tab: 'renewals' },
-    { icon: Clock, value: '3', label: 'Docs to expire', sublabel: 'Next 30 days', tab: 'expirations' },
-    { icon: FileText, value: '5', label: 'Awaiting signature', sublabel: 'Pending', tab: 'awaiting' },
-    { icon: CreditCard, value: '$3,115.75', label: 'Pending payments', sublabel: 'Overdue: 2', tab: 'payment' }
+    { icon: DollarSign, value: '$91,692.94', label: 'Active pipeline', sublabel: 'Total: 16', isHighlighted: true, filterType: null },
+    { icon: RefreshCw, value: '8', label: 'Documents to renew', sublabel: 'This month', filterType: 'renewals' },
+    { icon: Clock, value: '3', label: 'Docs to expire', sublabel: 'Next 30 days', filterType: 'expirations' },
+    { icon: FileText, value: '5', label: 'Awaiting signature', sublabel: 'Pending', filterType: 'signature' },
+    { icon: CreditCard, value: '$3,115.75', label: 'Pending payments', sublabel: 'Overdue: 2', filterType: 'payment' }
   ];
 
   return (
@@ -115,7 +115,7 @@ const StatsSection = ({ onStatClick }) => {
           label={stat.label}
           sublabel={stat.sublabel}
           isHighlighted={stat.isHighlighted}
-          onClick={stat.tab ? () => onStatClick(stat.tab) : undefined}
+          onClick={stat.filterType ? () => onStatClick(stat.filterType) : undefined}
         />
       ))}
     </div>
